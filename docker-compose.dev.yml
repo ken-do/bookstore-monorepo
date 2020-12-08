@@ -1,0 +1,14 @@
+version: '3.8'
+services:
+    api:
+        build:
+            context: ./
+            dockerfile: ./services/api/Dockerfile.dev
+    web:
+        build:
+            context: ./
+            dockerfile: ./services/web/Dockerfile.dev
+    admin:
+        build:
+            context: ./
+            dockerfile: ./services/admin/Dockerfile.dev

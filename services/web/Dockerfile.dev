@@ -1,0 +1,15 @@
+# Run this Dockerfile from the project's root folder using this command 
+# docker build -t bookstore-mono-web -f services/web/Dockerfile.ci .
+# And then run it using this command
+# docker run --name bookstore-mono-web --rm -d -p 8081:8081 bookstore-mono-web
+FROM node:12-alpine
+RUN mkdir -p /code/web
+WORKDIR /code/web/
+COPY ["package.json", "yarn.lock", "./"]
+COPY ./scripts ./scripts
+COPY ./node_modules ./node_modules
+COPY ./services/shared ./services/shared
+COPY ./services/web ./services/web
+RUN yarn build:web
+EXPOSE 8081
+CMD ["yarn", "start:web:container"]

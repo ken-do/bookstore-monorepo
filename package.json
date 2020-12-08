@@ -1,0 +1,87 @@
+{
+  "name": "bookstore-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "services/*"
+  ],
+  "scripts": {
+    "start": "run-p start:api start:web",
+    "start:web": "yarn workspace @bookstore/web start",
+    "start:admin": "yarn workspace @bookstore/admin start",
+    "start:api": "yarn workspace @bookstore/api start",
+    "start:prod": "run-s start:*:prod",
+    "start:web:prod": "yarn workspace @bookstore/web start:prod",
+    "start:admin:prod": "yarn workspace @bookstore/admin start:prod",
+    "start:api:prod": "yarn workspace @bookstore/api start:prod",
+    "stop:prod": "run-s stop:*:prod",
+    "stop:web:prod": "yarn workspace @bookstore/web stop:prod",
+    "stop:admin:prod": "yarn workspace @bookstore/admin stop:prod",
+    "stop:api:prod": "yarn workspace @bookstore/api stop:prod",
+    "start:container": "run-p start:*:container",
+    "start:web:container": "yarn workspace @bookstore/web start:container",
+    "start:admin:container": "yarn workspace @bookstore/admin start:container",
+    "start:api:container": "yarn workspace @bookstore/api start:container",
+    "build": "run-p build:*",
+    "build:web": "yarn workspace @bookstore/web build",
+    "build:admin": "yarn workspace @bookstore/admin build",
+    "build:api": "yarn workspace @bookstore/api build",
+    "test": "run-p test:*",
+    "test:web": "yarn workspace @bookstore/web test --watchAll=false",
+    "test:admin": "yarn workspace @bookstore/admin test --watchAll=false",
+    "test:api": "yarn workspace @bookstore/api test",
+    "test-coverage": "run-p test:*:coverage",
+    "test:web:coverage": "yarn workspace @bookstore/web test --collectCoverage",
+    "test:admin:coverage": "yarn workspace @bookstore/admin test --collectCoverage",
+    "test:api:coverage": "yarn workspace @bookstore/api test --collectCoverage",
+    "e2e": "cypress run",
+    "lint": "run-p lint:*",
+    "lint:es": "eslint --ext ts,tsx services/*/src",
+    "lint:style": "stylelint services/*/src/**/*.css",
+    "lint:file": "ls-lint",
+    "lint-fix": "eslint --fix --ext ts,tsx services/*/src",
+    "format": "prettier --write --parser typescript \"services/**/*.ts?(x)\"",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
+    "preinstall": "node ./scripts/checkYarn.js",
+    "postinstall": "node ./scripts/installHusky.js",
+    "precommit": "yarn commitlint --edit && yarn lint && lint-staged"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn lint && lint-staged",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "prettier --write"
+    ],
+    "*.ts?(x)": [
+      "eslint",
+      "prettier --parser=typescript --write"
+    ]
+  },
+  "engines": {
+    "node": ">=10.0.0"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "11.0.0",
+    "@commitlint/config-conventional": "11.0.0",
+    "@ls-lint/ls-lint": "1.9.2",
+    "@typescript-eslint/parser": "4.8.2",
+    "chalk": "4.1.0",
+    "conventional-changelog-cli": "2.1.1",
+    "cypress": "6.0.1",
+    "eslint-plugin-cypress": "2.11.2",
+    "husky": "4.3.0",
+    "lint-staged": "10.5.2",
+    "npm-run-all": "4.1.5",
+    "pm2": "4.5.0",
+    "prettier": "2.2.0",
+    "semver": "7.3.2",
+    "stylelint": "13.8.0",
+    "stylelint-config-prettier": "8.0.2",
+    "ts-jest": "26.4.4"
+  },
+  "dependencies": {}
+}
