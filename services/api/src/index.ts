@@ -2,7 +2,7 @@ import express, { Express } from 'express'
 import chalk from 'chalk'
 import cors from 'cors'
 
-const port = process.env.PORT_API || 5000
+const port = process.env.PORT_API ?? 5000
 
 function applyMiddlewares(app: Express) {
     app.use(cors())
