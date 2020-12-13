@@ -26,5 +26,6 @@ yarn-error.log*
 cypress/videos
 services/**/node_modules
 services/**/build
+services/**/dist
 services/**/coverage
 services/**/.eslintcache

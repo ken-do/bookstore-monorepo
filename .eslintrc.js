@@ -16,6 +16,9 @@ module.exports = {
         'plugin:cypress/recommended',
         'plugin:@typescript-eslint/recommended-requiring-type-checking',
         'plugin:promise/recommended',
+        'plugin:prettier/recommended',
+        'prettier/@typescript-eslint',
+        'prettier/react',
     ],
     rules: {
         'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
