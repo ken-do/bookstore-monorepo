@@ -14,9 +14,11 @@ type Manager = User
 
 interface Customer extends User {
     isMember: boolean
+    cart: ShoppingCart
 }
 
 interface Item {
+    id: string
     barcode: number
     price: number
     reorder: boolean
@@ -38,6 +40,7 @@ interface Book extends Item {
 }
 
 interface Promotion {
+    id: string
     code: string
     percentage: number
     expiration: Date
@@ -45,12 +48,14 @@ interface Promotion {
 }
 
 interface Transaction {
-    timeDate: Date
+    id: string
     userId: string
+    timeDate: Date
     items: Item[]
 }
 
 interface ShoppingCart {
+    customerId: string
     items: Item[]
     promotionAdded: boolean
     addPromotion: () => boolean
