@@ -1,3 +1,4 @@
 .eslintrc.js
 services/**/dist
 services/**/*.test.ts
+services/**/babel.config.js

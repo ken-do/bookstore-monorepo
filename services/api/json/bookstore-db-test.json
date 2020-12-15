@@ -1,0 +1,22 @@
+{
+    "managers": [
+        {
+            "id": "bb7aa65f-cef7-4015-86c1-cfe030a98f04",
+            "email": "broome0@phoca.cz",
+            "password": "vnAb7J",
+            "displayName": "Bobbie Roome",
+            "lastActivity": "8/7/2020",
+            "postalAddress": "00413 Kipling Park",
+            "loggedIn": true
+        },
+        {
+            "id": "dc9ee520-bb0d-499a-9ce5-07ef6242ee0a",
+            "email": "cbengtsson1@upenn.edu",
+            "password": "8crBLCJ9c",
+            "displayName": "Caye Bengtsson",
+            "lastActivity": "5/18/2020",
+            "postalAddress": "256 Hanover Alley",
+            "loggedIn": false
+        }
+    ]
+}

@@ -4,8 +4,10 @@ import createError from 'http-errors'
 import path from 'path'
 import cookieParser from 'cookie-parser'
 import logger from 'morgan'
+// routers
 import indexRouter from './routes/index'
-import usersRouter from './routes/users'
+import managersRouter from './routes/managers'
+import booksRouter from './routes/books'
 
 interface Error {
     message: string
@@ -24,7 +26,9 @@ function applyMiddlewares(app: Express) {
 
 function applyRoutes(app: Express) {
     app.use('/', indexRouter)
-    app.use('/users', usersRouter)
+    app.use('/managers', managersRouter)
+    app.use('/customers', managersRouter)
+    app.use('/books', booksRouter)
 }
 
 const app = express()

@@ -1,4 +1,4 @@
-interface User {
+export interface User {
     id: string
     password: string
     email: string
@@ -12,12 +12,12 @@ interface User {
 
 type Manager = User
 
-interface Customer extends User {
+export interface Customer extends User {
     isMember: boolean
     cart: ShoppingCart
 }
 
-interface Item {
+export interface Item {
     id: string
     barcode: number
     price: number
@@ -26,7 +26,7 @@ interface Item {
     stock: number
 }
 
-interface Inventory {
+export interface Inventory {
     items: Item
     purchaseItem: () => boolean
     addItem: () => void
@@ -34,12 +34,12 @@ interface Inventory {
     email: () => void
 }
 
-interface Book extends Item {
+export interface Book extends Item {
     title: string
     author: string
 }
 
-interface Promotion {
+export interface Promotion {
     id: string
     code: string
     percentage: number
@@ -47,14 +47,14 @@ interface Promotion {
     email: () => void
 }
 
-interface Transaction {
+export interface Transaction {
     id: string
     userId: string
     timeDate: Date
     items: Item[]
 }
 
-interface ShoppingCart {
+export interface ShoppingCart {
     customerId: string
     items: Item[]
     promotionAdded: boolean
@@ -63,4 +63,14 @@ interface ShoppingCart {
     addItem: () => void
     removeItem: () => void
     email: () => void
+}
+
+export interface DBTables {
+    customers: Customer[]
+    managers: Manager[]
+    books: Book[]
+    promotions: Promotion[]
+    inventory: Inventory
+    transactions: Transaction[]
+    shoppingCart: ShoppingCart[]
 }
