@@ -6,12 +6,12 @@ import cookieParser from 'cookie-parser'
 import logger from 'morgan'
 // routers
 import {
-    index,
-    books,
-    customers,
-    managers,
-    promotions,
-    transactions,
+    indexRouter,
+    booksRouter,
+    customersRouter,
+    managersRouter,
+    promotionsRouter,
+    transactionsRouter,
 } from './routes'
 
 interface Error {
@@ -30,12 +30,12 @@ function applyMiddlewares(app: Express) {
 }
 
 function applyRoutes(app: Express) {
-    app.use('/', index)
-    app.use('/books', books)
-    app.use('/managers', managers)
-    app.use('/customers', customers)
-    app.use('/promotions', promotions)
-    app.use('/transactions', transactions)
+    app.use('/', indexRouter)
+    app.use('/books', booksRouter)
+    app.use('/managers', managersRouter)
+    app.use('/customers', customersRouter)
+    app.use('/promotions', promotionsRouter)
+    app.use('/transactions', transactionsRouter)
 }
 
 const app = express()

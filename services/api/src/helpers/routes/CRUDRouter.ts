@@ -1,6 +1,6 @@
 import express, { Router } from 'express'
 import DBController from '../database/DBController'
-import { DatabaseTypes, Collection, CollectionItem } from '../database/types'
+import { DatabaseType, Collection, CollectionItem } from '../database/types'
 import { RequestMethods, CRUDRouter as CRUDRouterInterface } from './types'
 
 const defaultAllowedMethods = [
@@ -11,7 +11,7 @@ const defaultAllowedMethods = [
     RequestMethods.DELETE,
 ]
 
-const defaultDatabaseType = DatabaseTypes.JSON
+const defaultDatabaseType = DatabaseType.JSON
 
 class CRUDRouter implements CRUDRouterInterface {
     router: Router
@@ -22,7 +22,7 @@ class CRUDRouter implements CRUDRouterInterface {
     constructor(
         tableName: string,
         allowedMethods: RequestMethods[] = defaultAllowedMethods,
-        databaseType: DatabaseTypes = defaultDatabaseType
+        databaseType: DatabaseType = defaultDatabaseType
     ) {
         this.router = express.Router()
         this.db = new DBController(databaseType)

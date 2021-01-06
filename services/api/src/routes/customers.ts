@@ -1,12 +1,20 @@
 import { CRUDRouter } from '../helpers'
+class CustomersRouter extends CRUDRouter {
+    constructor(tableName: string) {
+        super(tableName)
+        this.login()
+        this.logout()
+    }
 
-const router = new CRUDRouter('customers')
+    login(): void {
+        this.router.post('/login', (req, res) => null)
+    }
 
-// Override the router's methods by doing the following
-// router.get('/',() => {})
-// router.post('/',() => {})
-// router.put('/',() => {})
-// router.patch('/',() => {})
-// router.remove('/',() => {})
+    logout(): void {
+        this.router.post('/logout', (req, res) => null)
+    }
+}
+
+const router = new CustomersRouter('customers')
 
 export default router.router

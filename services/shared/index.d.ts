@@ -1,4 +1,5 @@
 export interface User {
+    [key: string]: unknown
     id: string
     password: string
     email: string
@@ -18,6 +19,7 @@ export interface Customer extends User {
 }
 
 export interface Item {
+    [key: string]: unknown
     id: string
     barcode: number
     price: number
