@@ -41,6 +41,13 @@ describe('CollectionJSON', () => {
         expect(collection.getById('fake-id')).toBeNull()
     })
 
+    it('should allow RETRIEVING one item using any field whose value is string', () => {
+        const items = collection.getAll()
+        const firstItem = items[0]
+        expect(collection.query({ email: firstItem.email })).toBeDefined()
+        expect(collection.query({ email: 'abc@example.com' })).toBeNull()
+    })
+
     it('should allow UPDATING an item', () => {
         const lastItem = collection.getAll().pop() as User
         const newDisplayName = 'New Display Name'

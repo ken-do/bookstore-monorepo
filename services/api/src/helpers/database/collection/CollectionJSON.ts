@@ -2,10 +2,17 @@ import fs from 'fs'
 import { v4 as uuidv4 } from 'uuid'
 import path from 'path'
 import appRoot from 'app-root-path'
-import { Collection, CollectionItem, Database } from '../types'
+import {
+    Collection,
+    CollectionItem,
+    NullableCollectionItem,
+    Database,
+    QueryMode,
+    CollectionItemData,
+} from '../types'
 import { JSON_DB_NAME } from '../../config'
 
-class CollectionMongo implements Collection {
+class CollectionJSON implements Collection {
     name: string
     dbPathname: string
     constructor(name: string, fileName: string = JSON_DB_NAME) {
@@ -34,14 +41,43 @@ class CollectionMongo implements Collection {
         return database[this.name] ?? []
     }
 
-    getById(id: string): CollectionItem {
+    getById(id: string): NullableCollectionItem {
         const database = this.getDatabase()
         const item =
             database[this.name].find((item) => item && id === item.id) ?? null
         return item
     }
 
-    create(data: Omit<CollectionItem, 'id'>): CollectionItem {
+    query(
+        queryObject: CollectionItemData,
+        queryMode: QueryMode = QueryMode.AND
+    ): NullableCollectionItem {
+        const database = this.getDatabase()
+        const collection = database[this.name]
+        let found = false
+        for (const item of collection) {
+            for (const key in queryObject) {
+                if (Object.prototype.hasOwnProperty.call(queryObject, key)) {
+                    const queryValue = queryObject[key]
+                    const itemValue = item[key]
+                    const isKeyValueMatched =
+                        typeof queryValue === 'string' &&
+                        typeof itemValue === 'string' &&
+                        queryValue === itemValue
+                    found =
+                        queryMode === QueryMode.AND
+                            ? found && isKeyValueMatched
+                            : found || isKeyValueMatched
+                }
+            }
+            if (found) {
+                return item
+            }
+        }
+        return null
+    }
+
+    create(data: CollectionItemData): NullableCollectionItem {
         if (data) {
             const database = this.getDatabase()
             const collection = database[this.name]
@@ -61,9 +97,9 @@ class CollectionMongo implements Collection {
 
     update(
         id: string,
-        data: Partial<CollectionItem> = {},
+        data: CollectionItemData = {},
         override = false
-    ): CollectionItem {
+    ): NullableCollectionItem {
         const database = this.getDatabase()
         const collection = database[this.name]
         const existingItem = collection.find(
@@ -86,7 +122,7 @@ class CollectionMongo implements Collection {
         return null
     }
 
-    createOrUpdate(data: Partial<CollectionItem>): CollectionItem {
+    createOrUpdate(data: Partial<CollectionItem>): NullableCollectionItem {
         let item = null
         if (data) {
             if (!data.id) {
@@ -101,7 +137,7 @@ class CollectionMongo implements Collection {
         return item
     }
 
-    remove(id: string | string[]): CollectionItem {
+    remove(id: string | string[]): NullableCollectionItem {
         const database = this.getDatabase()
         const collection = database[this.name]
         const ids = typeof id === 'string' ? [id] : id
@@ -124,4 +160,4 @@ class CollectionMongo implements Collection {
     }
 }
 
-export default CollectionMongo
+export default CollectionJSON

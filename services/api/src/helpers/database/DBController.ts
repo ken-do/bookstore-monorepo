@@ -3,21 +3,21 @@ import { CollectionJSON, CollectionMongo, CollectionMySQL } from './collection'
 import {
     DBController as DBControllerInterface,
     Collection,
-    DatabaseTypes,
+    DatabaseType,
 } from './types'
 
 class DBController implements DBControllerInterface {
-    dbType: DatabaseTypes
+    dbType: DatabaseType
 
-    constructor(dbType: DatabaseTypes) {
+    constructor(dbType: DatabaseType) {
         this.dbType = dbType
     }
 
     getCollection(name: string): Collection {
         switch (this.dbType) {
-            case DatabaseTypes.MONGO:
+            case DatabaseType.MONGO:
                 return new CollectionMongo(name)
-            case DatabaseTypes.MYSQL:
+            case DatabaseType.MYSQL:
                 return new CollectionMySQL(name)
             default:
                 return new CollectionJSON(name)

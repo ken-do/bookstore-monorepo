@@ -1,22 +1,24 @@
 import { Item, User } from '@bookstore/shared'
 
-export type CollectionItem = Item | User | null
+export type CollectionItem = Item | User
+export type NullableCollectionItem = Item | User | null
+
 export interface Collection {
     name: string
     getAll: () => CollectionItem[]
-    getById: (id: string) => CollectionItem
-    create: (data: Omit<CollectionItem, 'id'>) => CollectionItem
+    getById: (id: string) => NullableCollectionItem
+    create: (data: CollectionItemData) => NullableCollectionItem
     update: (
         id: string,
-        data: Partial<CollectionItem>,
+        data: CollectionItemData,
         override?: boolean
-    ) => CollectionItem
-    createOrUpdate?: (data: Partial<CollectionItem>) => CollectionItem
-    remove: (id: string) => CollectionItem
+    ) => NullableCollectionItem
+    createOrUpdate?: (data: Partial<CollectionItem>) => NullableCollectionItem
+    remove: (id: string) => NullableCollectionItem
 }
 
 export interface DBController {
-    dbType: DatabaseTypes
+    dbType: DatabaseType
     getCollection: (collectionName: string) => Collection
 }
 
@@ -24,8 +26,15 @@ export interface Database {
     [key: string]: CollectionItem[]
 }
 
-export enum DatabaseTypes {
+export enum DatabaseType {
     JSON,
     MONGO,
     MYSQL,
+}
+
+export type CollectionItemData = Partial<Omit<CollectionItem, 'id'>>
+
+export enum QueryMode {
+    AND,
+    OR,
 }
