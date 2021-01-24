@@ -1,15 +1,23 @@
 //
 import React from 'react'
 import { BrowserRouter as Router } from 'react-router-dom'
-import { Header, RouteRenderer } from './components'
+import { Layout } from 'antd'
+import { RouteRenderer, Header } from './components'
+import styles from './App.module.css'
 
-function App() {
+const { Content } = Layout
+
+const App = () => {
     return (
         <Router>
-            <div>
+            <Layout className="layout">
                 <Header />
-                <RouteRenderer />
-            </div>
+                <Content style={{ padding: '0 50px' }}>
+                    <div className={styles.siteLayoutContent}>
+                        <RouteRenderer />
+                    </div>
+                </Content>
+            </Layout>
         </Router>
     )
 }

@@ -1,0 +1,20 @@
+.headerRight {
+    float: right;
+    display: flex;
+    align-items: center;
+}
+
+.headerLeft {
+    float: left;
+    display: flex;
+    align-items: center;
+}
+
+.headerLeft a {
+    margin-right: 16px;
+    font-size: 24px;
+}
+
+.headerRight button {
+    margin-left: 32px;
+}

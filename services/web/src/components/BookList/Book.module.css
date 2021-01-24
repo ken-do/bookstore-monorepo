@@ -1,0 +1,11 @@
+.book {
+    width: 100%;
+    border: 1px solid #f0f0f0;
+    margin: 8px;
+}
+
+.bookSelected {
+    width: 100%;
+    border: 1px solid #1890ff;
+    margin: 8px;
+}

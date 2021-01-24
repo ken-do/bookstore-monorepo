@@ -2,11 +2,11 @@ import React from 'react'
 import { Switch, Route } from 'react-router-dom'
 import routes from '../helpers/routes'
 
-function RouteRenderer() {
+const RouteRenderer = () => {
     return (
         <Switch>
-            {routes.map((route) => (
-                <Route exact path={route.path}>
+            {routes.map((route, index) => (
+                <Route key={index} exact path={route.path}>
                     <route.component />
                 </Route>
             ))}
