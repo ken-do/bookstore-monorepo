@@ -15,6 +15,7 @@ export interface Collection {
     ) => NullableCollectionItem
     createOrUpdate?: (data: Partial<CollectionItem>) => NullableCollectionItem
     remove: (id: string) => NullableCollectionItem
+    query: (queryObject: QueryObject) => NullableCollectionItem
 }
 
 export interface DBController {
@@ -35,6 +36,8 @@ export enum DatabaseType {
 export type CollectionItemData = Partial<Omit<CollectionItem, 'id'>>
 
 export enum QueryMode {
-    AND,
-    OR,
+    AND = 1,
+    OR = 2,
 }
+
+export type QueryObject = CollectionItemData & { qm?: QueryMode }

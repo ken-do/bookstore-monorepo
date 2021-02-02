@@ -10,10 +10,10 @@ const { Content } = Layout
 const App = () => {
     return (
         <Router>
-            <Layout className="layout">
+            <Layout className={styles.layout}>
                 <Header />
                 <Content style={{ padding: '0 50px' }}>
-                    <div className={styles.siteLayoutContent}>
+                    <div className={styles.layoutContent}>
                         <RouteRenderer />
                     </div>
                 </Content>

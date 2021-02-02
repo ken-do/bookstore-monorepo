@@ -1,4 +1,8 @@
-.siteLayoutContent {
+section.layout {
+    min-height: 100vh;
+}
+
+.layoutContent {
     min-height: 280px;
     padding: 24px;
     background: #fff;

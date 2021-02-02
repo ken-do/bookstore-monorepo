@@ -1,7 +1,48 @@
 {
     "managers": [],
     "customers": [],
-    "books": [],
+    "books": [
+        {
+            "id": "1",
+            "barcode": 123,
+            "price": 123,
+            "reorder": false,
+            "reorderAmount": 123,
+            "stock": 123,
+            "title": "Book 1",
+            "author": "Author 1"
+        },
+        {
+            "id": "2",
+            "barcode": 123,
+            "price": 123,
+            "reorder": false,
+            "reorderAmount": 123,
+            "stock": 123,
+            "title": "Book 2",
+            "author": "Author 2"
+        },
+        {
+            "id": "3",
+            "barcode": 123,
+            "price": 123,
+            "reorder": false,
+            "reorderAmount": 123,
+            "stock": 123,
+            "title": "Book 3",
+            "author": "Author 3"
+        },
+        {
+            "id": "4",
+            "barcode": 123,
+            "price": 123,
+            "reorder": false,
+            "reorderAmount": 123,
+            "stock": 123,
+            "title": "Book 4",
+            "author": "Author 4"
+        }
+    ],
     "promotions": [],
     "transactions": []
 }

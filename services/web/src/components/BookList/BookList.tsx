@@ -1,9 +1,15 @@
 import React, { useCallback, useState } from 'react'
-import Book from './Book'
 import { Col, Row } from 'antd'
-import books from '../books.json'
 
-const BookList = () => {
+import { Book as BookType } from '@bookstore/shared/index'
+
+import Book from './Book'
+
+interface Props {
+    books: BookType[]
+}
+
+const BookList = ({ books }: Props) => {
     const [selectedBooks, setSelectedBooks] = useState([] as string[])
     const handleSelectBook = useCallback(
         (id) => {

@@ -9,6 +9,7 @@ import {
     Database,
     QueryMode,
     CollectionItemData,
+    QueryObject,
 } from '../types'
 import { JSON_DB_NAME } from '../../config'
 
@@ -48,28 +49,27 @@ class CollectionJSON implements Collection {
         return item
     }
 
-    query(
-        queryObject: CollectionItemData,
-        queryMode: QueryMode = QueryMode.AND
-    ): NullableCollectionItem {
+    query(queryObject: QueryObject): NullableCollectionItem {
+        const queryMode: QueryMode = queryObject.qm ?? QueryMode.AND
         const database = this.getDatabase()
         const collection = database[this.name]
         let found = false
         for (const item of collection) {
-            for (const key in queryObject) {
-                if (Object.prototype.hasOwnProperty.call(queryObject, key)) {
-                    const queryValue = queryObject[key]
-                    const itemValue = item[key]
-                    const isKeyValueMatched =
-                        typeof queryValue === 'string' &&
-                        typeof itemValue === 'string' &&
-                        queryValue === itemValue
-                    found =
-                        queryMode === QueryMode.AND
-                            ? found && isKeyValueMatched
-                            : found || isKeyValueMatched
-                }
+            const isMatch = (key: string): boolean => {
+                const queryValue = queryObject[key]
+                const itemValue = item[key]
+                return (
+                    typeof queryValue === 'string' &&
+                    typeof itemValue === 'string' &&
+                    queryValue === itemValue
+                )
             }
+
+            found =
+                queryMode === QueryMode.OR
+                    ? Object.keys(queryObject).some(isMatch)
+                    : Object.keys(queryObject).every(isMatch)
+
             if (found) {
                 return item
             }

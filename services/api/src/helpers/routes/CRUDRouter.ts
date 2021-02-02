@@ -1,7 +1,10 @@
 import express, { Router } from 'express'
-import DBController from '../database/DBController'
+import _isEmpty from 'lodash/isEmpty'
+
 import { DatabaseType, Collection, CollectionItem } from '../database/types'
 import { RequestMethods, CRUDRouter as CRUDRouterInterface } from './types'
+
+import DBController from '../database/DBController'
 
 const defaultAllowedMethods = [
     RequestMethods.GET,
@@ -39,7 +42,11 @@ class CRUDRouter implements CRUDRouterInterface {
 
     [RequestMethods.GET](): void {
         this.router.get('/', (req, res) => {
-            res.send(this.collection.getAll())
+            if (!_isEmpty(req.query)) {
+                res.send(this.collection.query(req.query))
+            } else {
+                res.send(this.collection.getAll())
+            }
         })
         this.router.get('/:id', (req, res) => {
             const id = req.params.id
